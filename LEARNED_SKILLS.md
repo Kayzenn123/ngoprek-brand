@@ -41,3 +41,25 @@ intisari di sini + push ke GitHub. Format: tanggal, sumber, inti, cara pakai.
 - Postingan: JANGAN PERNAH centang label "AI content" / "Made with AI".
 - Pronunciation TTS: cursor→"Kursor", windsurf→"Wind-serf", repo→"ripo"
   (~/workspace/ngoprek-brand/pronunciation.json, 27 entry).
+
+## 2026-10-14 — RISET: Remocn (350+ komponen video copy-paste utk Remotion)
+- Sumber: browsing web 2026-10-14 (next.jqueryscript.net, Product Hunt).
+- Inti: library komponen Remotion siap pakai — Typography (Typewriter,
+  Matrix Decode, Marquee), Transitions (Whip Pan, Zoom Blur, Wave Wipe),
+  Shaders (Mesh Gradient, God Rays), UI Blocks (Terminal Simulator,
+  Glass Code Block, Animated Line Chart), AI Demos (Claude Chat, Claude Code),
+  Captions (Karaoke, Word Pop, Highlight Box), Effects (Confetti, VHS, CRT).
+- Kenapa penting: semua yang user minta (terminal typing, caption pill,
+  transisi whip) SUDAH ADA jadi komponen — tidak perlu bikin dari nol.
+- Status: BELUM diinstall. Menunggu izin user (protokol Usul & Minta Izin).
+- Link: https://next.jqueryscript.net/shadcn-ui/remocn-video-components-remotion/
+
+## 2026-10-14 — RISET: Lanskap AI coding tools (Okt 2026)
+- Sumber: DEV.to, saascity.io, mameara.com (berita minggu ini).
+- Taksonomi: (1) prompt-to-app builders: Lovable, Bolt.new, Replit, v0, Base44;
+  (2) AI code editors: Cursor, Windsurf; (3) terminal/repo agents:
+  Claude Code, OpenAI Codex.
+- Pemain baru: ByteDance Trae IDE (gratis, Builder Mode), Devin Desktop
+  (ex-Windsurf, di bawah Cognition), Google Antigravity (agent-first).
+- Topik video potensial: "Cursor vs Trae" (pemain baru ByteDance),
+  "3 kelas AI coding tools" (taxonomy di atas — belum banyak yang bahas).
