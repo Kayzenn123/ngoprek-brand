@@ -132,3 +132,79 @@ r=230 di semua pixel). Fix: `min(r,g,b) > 200` (near-white).
   kita pakai. TIDAK ada upgrade yang layak dari sini — konfirmasi bahwa
   kunci ritme kita sudah benar, bukan gap.
 - Status: bukan usulan perubahan pipeline. Catat sebagai validasi.
+
+## 2026-10-15 — REFERENSI MOTION: @sipalinglogistic "GUDANG TANPA RAK" (cross-dock explainer, 74 dtk, 9:16)
+- Sumber: video referensi dari Zenn (di-upload ke media_library, 74 dtk).
+- Inti: explainer satu konsep (cross-dock) dengan sistem visual ketat — bg hitam,
+  krem + oranye sebagai warna utama, merah/hijau/biru sebagai warna data,
+  tipografi condensed raksasa, ilustrasi isometric wireframe.
+- TEKNIK YANG KITA BELUM PUNYA (gap, layak diadopsi):
+  1. Color-bar wipe transition — 3 bar vertikal (merah/hijau/biru) wipe full-screen
+     antar scene (transisi di dtk 3-4). Beda dari whip-pan kita; lebih punchy.
+  2. Staggered letter entrance — judul raksasa masuk huruf per huruf dengan stagger
+     (CROSS/DOCK). Kita baru word-level di caption.
+  3. Count-up numbers — angka 0→18, 0→20 animasi naik. Widget stat kita statis.
+  4. Running clock HUD — "JAM 07:02→07:10" jalan selama adegan (efek time-lapse).
+     Cocok untuk konten tutorial/workflow.
+  5. Stamp badges — badge "RAK ✕" / "PUT-AWAY ✕" / "DOCK MACET ✕" menghantam masuk
+     kayak stempel karet. Device penekanan yang kuat.
+  6. Segmented progress bar + counter sinkron — "PALET TERMUAT 9/18→18/18" dengan
+     bar segmen warna-warni terisi bertahap.
+  7. Radial timer — lingkaran 0→20 MENIT untuk durasi/rata-rata.
+  8. Legend color-coding — chip "TOKO 1/2/3" + warna atas = tujuan; sistem kode
+     warna data dengan legenda.
+  9. Bar meters + panah arah — "STOK ↓ / BIAYA SIMPAN ↓ / WAKTU KIRIM ↓",
+     bar horizontal menyusut dengan panah.
+  10. Failure state — visual "kalau gagal": stamp + flash merah + timeline telat.
+      Beat "syarat/risiko" yang dramatis.
+  11. Kicker labels — label kecil oranye di atas judul ("01 — 07:00 PAGI",
+      "KODE WARNA", "DWELL TIME", "KENAPA DIPAKAI"). Pola widget baru.
+  12. Perbandingan split + counter — "GUDANG BIASA: HARI KE-15" vs
+      "CROSS-DOCK: ±20 MENIT", dua kolom dengan counter jalan.
+- KOMBINASI ADOPSI untuk @ngoprek.dev (dipetakan ke katalog widget):
+  A. "Stat punch": kicker + judul stagger + count-up + bar meter → untuk klaim
+     angka tool (mis. "10x lebih cepat", "0 config").
+  B. "Process explainer": clock HUD + ilustrasi line/isometric + label langkah +
+     progress bar → untuk tutorial/workflow (git bisect, CI, dsb).
+  C. "Versus upgrade": kolom perbandingan + stamp ✕/✓ + counter → untuk format
+     versus/1v1.
+  D. "Transition pack": color-bar wipe + varian whip-pan per beat (pakai palet
+     4 warna yang baru dibuka).
+  E. "Data flow": legend kode warna + alur animasi (paket bergerak di jalur) →
+     untuk menjelaskan aliran data (request flow, git branching, dsb).
+- Status: analisis + daftar adopsi. Eksekusi = tambah widget baru ke engine
+  Ngoprek.tsx (countup, clock, stamp, progress, radial, legend, bars-animated,
+  kicker-headline, compare) — perlu persetujuan Zenn sebelum ubah pipeline utama.
+
+## 2026-10-15 — REFERENSI MOTION: video engineering "Anthropic Bikin Version Control Sendiri / Scion" (13 slide, 9:16, dari blog "Redesigning Source Control, Okt 2026")
+- Sumber: video referensi kedua dari Zenn (di-upload ke media_library) — frame per frame sudah dibedah.
+- Inti: explainer engineering dengan sistem visual "slide deck sinematik" — bg krem terang, tipografi serif/sans raksasa, kartu putih, aksen bata/oranye + hijau. Beda total dari gaya gelap @ngoprek.dev, tapi ARSITEKTUR LAYOUT-nya yang kita adopsi (bukan warnanya).
+- TEKNIK LAYOUT & STORYTELLING (gap, layak diadopsi):
+  1. Top bar + slide indicator — header tipis paling atas: topik di kiri ("Anthropic · Source Control"), indikator "01 / 13" + progress fill di kanan. Penonton tahu struktur & posisi.
+  2. Dynamic top headline — headline raksasa di ATAS kartu (bukan subtitle bawah), kata muncul satu per satu mengikuti narasi, kata kunci diberi warna aksen. Gantiin kotak subtitle bawah yang bikin fokus pecah.
+  3. Kicker pill badge — pill kecil di atas judul ("Anthropic · Engineering") untuk konteks instan tiap beat.
+  4. Git branching tree — garis-garis cabang dari node-node menyatu ke satu titik tengah (box "git"), titik node berjalan di sepanjang garis. Untuk visualisasi merge/branch.
+  5. Count-up agresif — 900→2.500→30.401, ~25→200x, 0%→25%, semua angka di-count-up, bukan statis.
+  6. Bar chart growth — bar Mei→Sep tumbuh bertahap mengikuti narasi.
+  7. Bento grid 2x2 stat — 4 kartu statistik muncul bertahap (History ~100 GB / Working Copy 25 GB+ / Checkout CI ~25 Jt / Mirror Git Ratusan), tiap kartu: label kecil + angka count-up + unit + sublabel.
+  8. Split comparison 2 kolom — "Git Mengira: Offline" (ikon laptop, wifi disilang) vs "Kenyataannya: Online" (grid kotak agent). Asumsi lama vs realita.
+  9. Numbered list reveal — daftar prinsip 01–05 muncul satu per satu.
+  10. Layered node diagram — alur vertikal Client → scion daemon → scion cache → scion server → (Spanner | Cloud Storage), panah penghubung + badge metrik di samping ("99%+ Hit").
+  11. Horizontal comparison bar — bar berdampingan dalam satu kartu (git 87 dtk vs scn 3,5 dtk; git 7,1 mnt vs scn 5,1 dtk).
+  12. Visual unit counter (dot/block array) — di bawah angka "7 Orang" ada 7 titik, "5 Bulan" ada 5 blok, menyala berurutan.
+  13. Strikethrough concept replacement — teks konsep lama dicoret horizontal ("Nulis Kode") lalu poin baru muncul (Review, Deploy).
+  14. Stamp badge — stempel "Nggak" menghantam di kartu "Bilang Nggak Ke Claude".
+  15. 6-grid system monitor — 6 kotak (daemon, cache, server, ingest, spanner, storage) + titik hijau/abu-abu + garis heartbeat animasi.
+  16. Pipeline flow — Merge → Test → Deploy dengan pill "Konflik Dibereskan Claude".
+  17. Timeline slider — garis 0–12 bln dengan blok rentang estimasi (6–12 bln).
+  18. Source footer — "Sumber · ..." kecil di bawah tiap slide (kredibilitas, cocok dengan claim_log.json kita).
+- ADAPTASI KE IDENTITAS @ngoprek.dev (wajib, bukan opsional):
+  - JANGAN tiru palet krem/oranye video ini. Pakai palet brand: hitam #0A0A0A, putih, merah #E63946 (+ krem terang seperlunya sebagai bg alternatif).
+  - Color-bar wipe pakai palet brand (merah menyala / hitam / putih), BUKAN merah-hijau-biru mentah.
+  - Oranye TETAP DILARANG (aturan permanen 2026-10-14). Aksen hijau terminal & hazard stripe merah-hitam boleh dipakai sebagai ciri khas.
+- SCENE PRESETS BARU (gabungan kedua referensi, bisa dipanggil per konten):
+  F. "Architecture Deep-Dive": top headline + layered node diagram / git tree + badge persentase (99%+) → bedah cara kerja sistem/backend.
+  G. "System Health / Benchmark Grid": bento 2x2 atau 6-grid heartbeat + horizontal speed bar + count-up → pamer performa / resource usage.
+  H. "Myth vs Reality (Paradigm Shift)": split 2 kolom + stamp ✕/✓ + strikethrough → patahin kebiasaan coding lama.
+  (A–E dari video logistik tetap berlaku: Stat punch, Process explainer, Versus upgrade, Transition pack, Data flow.)
+- Status: 2026-10-15 — dicatat atas perintah Zenn ("gabungin kedua referensi, eksekusi setelah render Ollama kelar"). Render Ollama SELESAI 2026-10-15 ~07:54 WIB → eksekusi widget engine jalan sekarang.
