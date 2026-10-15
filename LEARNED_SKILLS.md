@@ -208,3 +208,106 @@ r=230 di semua pixel). Fix: `min(r,g,b) > 200` (near-white).
   H. "Myth vs Reality (Paradigm Shift)": split 2 kolom + stamp ✕/✓ + strikethrough → patahin kebiasaan coding lama.
   (A–E dari video logistik tetap berlaku: Stat punch, Process explainer, Versus upgrade, Transition pack, Data flow.)
 - Status: 2026-10-15 — dicatat atas perintah Zenn ("gabungin kedua referensi, eksekusi setelah render Ollama kelar"). Render Ollama SELESAI 2026-10-15 ~07:54 WIB → eksekusi widget engine jalan sekarang.
+
+## 2026-10-15: Referensi video 32k likes (@briandlab, fitur SOS iPhone)
+User kirim video referensi, minta dipelajari buat kualitas konten naik.
+Struktur yang bikin viral:
+1. Hook (0-3s): "Lagi bahaya? Tekan 5 kali." — urgent, curiosity, aksi spesifik
+2. Problem (3-7s): "Mau nelepon pun nggak sempet" — pain yang relatable
+3. Solution (7-13s): "Ternyata HP kamu udah punya jalan pintasnya" — reveal
+4. Demo visual (13-30s): 3D phone, tombol power ditekan, countdown
+5. Tutorial setup (30-50s): step-by-step iPhone + Android, jelas
+6. Emotional angle (50-55s): "di HP orang tua kamu" — relevansi universal
+7. CTA (55-62s): "Udah nyalain fitur ini? Tulis di komentar" — drive engagement
+
+Pelajaran buat @ngoprek.dev:
+- Konten harus RELEVAN buat orang awam, bukan cuma niche dev
+- Tiap detik jelas, nggak ada jargon tanpa penjelasan
+- Visual selalu support narasi (3D smooth, bukan tempel)
+- Emotional angle di akhir buat expand audience
+- CTA spesifik, bukan generik
+
+## 2026-10-16 — LOCKED PRODUCTION SPEC user (BERLAKU SEMUA RENDER)
+- User overwrite langsung 6 file referensi dengan spec final (LOCKED PRODUCTION SPEC):
+  1. `REFERENCE-STYLE-GUIDE.md` — anti-silau (base #0A0A0A 75-85%, haram layar merah penuh), anti-emoji mentah, anti-garis abstrak, anti-ruang melompong (kartu min 940×720px), anatomi layar vertikal (header 140-210, stage 230-1220, caption pill 1280-1460, maskot 1460-1820).
+  2. `SKILL-beat-sync-motion.md` — audio 3 lapis (VO -14 LUFS, sub-pulse -26 dBFS 115-125 BPM, SFX kontekstual per beat), zero frozen second (beat 0/36/72), spring wajib (damping 14, stiffness 180, mass 0.8).
+  3. `SKILL-motion-effects.md` — 4 signature effects: RedBarWipe (120px, 10f, swap di f5), PromptMotif (blink 2x 10f), BeatBackgroundRotator (4 state overlay 0.12-0.18), PunchGlitch3F (maks 1-2x/video).
+  4. `SKILL-vox-explainer.md` — VoxCardContainer (kicker + judul + body angka/bar + footer sumber wajib).
+  5. `SKILL-video-shotcraft.md` — kartu min 55% tinggi layar, hirarki mata (judul→gerakan→caption), targeted camera focus (1.0→1.04 saat angka kunci).
+  6. `CONTOH_EMAS.md` — storyboard gold standard "3 Kesalahan Charge HP" (30.7s, 6 scene, beat per 1.2s, SFX per beat).
+- Spec ini menggantikan semua versi lama. Berlaku untuk semua render mulai detik ini.
+
+## 2026-10-16 — SKILL flythrough-camera (user-authored, LOCKED)
+- User kirim langsung komponen `src/v3/FlythroughWorld.tsx` (442 lines, VPS) + spec `SKILL-flythrough-camera.md`.
+- Isi: 6 CameraTopology (zigzag-circuit, deep-zoom-nest, strata-flood-down, horizontal-panorama, radial-orbit, split-expand), 4 SpringFeel, 4 ConnectorStyle, 3-layer parallax (0.25x/1.0x/0x), kabel SVG live strokeDashoffset, WavyStrataLip 48px, LiveSquiggleUnderline, LiveOrbitalRing, kartu neo-brutalist 3D hard shadow.
+- Aturan: HARAM pakai topology sama 3 video berturut-turut; fingerprint-log wajib kolom CAM + spring feel; qa_gate tolak jika CAM sama dengan 2 video sebelumnya.
+- Lokasi: VPS `/home/ngoprek/skills/flythrough-camera/SKILL.md`, lokal `~/workspace/custom-skills/local-flythrough-camera/SKILL.md`.
+- Catatan: kode user ada duplikasi/korupsi di tengah (komentar BEAT 3 kepotong + duplikat komponen) — sudah dibersihkan sebelum simpan, 1 export, tsc project clean.
+
+## 2026-10-16 — Comment-DM poller v2 (fix 429)
+- Root cause 429: poller v1 fetch SEMUA komen 10 postingan (paginasi penuh) tiap 15 mnt + mine_topics.py fetch ulang yang sama = 2x API calls tidak perlu.
+- Fix v2: incremental fetch (berhenti di komen lama), max 5 postingan, max 3 halaman/postingan, backoff 30s/60s/120s + jitter saat 429, mining terintegrasi (mine_topics.py pensiun).
+- Cron ngoprek-comment-dm-poller diupdate ke v2.
+
+## 2026-10-16 — 5 ATURAN BESI ENGINE (user order, LOCKED FOREVER)
+- `src/v3/EngineMasterCore.ts` (VPS, 13KB): ENGINE_VERSION 1.0.0-iron, validateFrame0, validateMicroWidgets, getVOPreprocessFilter, validateVOScript (max 8 kata), filterTopicAngle, selectTopology (anti-monoton 2 video).
+- 5 widgets di `src/v3/widgets/`: AnimatedBarRace, LiveCodeDiff, InteractiveToggleUI, SegmentedGauge, NodeFlowDiagram (semua bawa SFX event sendiri).
+- 3 micro-SFX di `assets/sfx/micro/`: digital-ticker, mechanical-click, whoosh-zip (frequency sweep, bukan sine statis).
+- `src/v3/vo-preprocess.sh`: silenceremove max 0.20s + loudnorm -14 LUFS.
+- `topic-bank/filter-contrarian.py`: filter ke 3 angle (debunking/extreme-metric/under-the-hood).
+- `src/v3/DAILY-PIPELINE.md`: dokumentasi alur harian.
+- tsc clean. Berlaku semua render mulai detik ini.
+
+## 2026-10-16 — SKILL variety-engine (user-authored, PRIORITAS #2)
+- File: VPS `/home/ngoprek/skills/variety-engine/SKILL.md`, lokal `~/workspace/custom-skills/local-variety-engine/SKILL.md`.
+- Prioritas: STYLE GUIDE (1) > VARIETY ENGINE (2) > flythrough/beat-sync/shotcraft/vox/motion-effects (3) > CONTOH_EMAS (4, hanya acuan kepadatan, DILARANG disalin).
+- Diagnosa: contoh emas ditiru mentah, off-niche (baterai vs channel dev), kartu setengah kosong, gerak muncul-lalu-diam, skill tabrakan.
+- 12 archetype: TERMINAL_LIVE, DIFF_REVEAL, SPLIT_WIPE, BENCH_RACE, NODE_GRAPH, FILE_TREE, STACK_XRAY, UI_MOCK, TIMELINE_PAN, BIGNUM_PUNCH, MYTH_FACT (max 1/video), CTA_CARD.
+- 8 sumbu fingerprint: HOOK, ARCH-SEQ, CAM, TRANS, BG-SEQ, BPM, PAYOFF, MASCOT-OPEN.
+- Variation Gate: tolak jika >=5/8 sumbu sama N-1, ARCH-SEQ sama N-1/N-2, CAM sama N-1/N-2, archetype unik <3, SFX unik <6, RedBarWipe >2.
+- Zero Dead Pixels: min 2 hal bergerak tiap momen. RedBarWipe max 2x/video (penanda bab saja).
+- Engine V3 DIBEKUKAN: variasi = storyboard data + komponen baru, dilarang edit komponen lama.
+- Cek otomatis pasca-render: freezedetect, ebur128, contact sheet.
+
+## 2026-10-16 — Poller frequency 15m -> 1h (user: "yang penting bener stabil")
+- Instagram 429 persisten ~20+ menit. User pilih stabilitas: cron ngoprek-comment-dm-poller turun ke tiap 1 jam sementara.
+- Kembalikan ke 15m setelah rate limit pulih (cek manual atau tunggu user).
+
+## 2026-10-16 — BUG FIX EngineMasterCore.ts (wajib catat)
+- Bug: widgets import IRON_SPRING dari EngineMasterCore, tapi file itu import 'fs' (Node-only) -> webpack bundle Remotion GAGAL ("Can't resolve 'fs'").
+- Fix minimal: hapus `import * as fs`, `loadRecentCAMs(logPath)` -> `parseRecentCAMs(logContent)` (pure/browser-safe). Caller Node.js baca file dulu. Backup di /tmp/EngineMasterCore.ts.bak (VPS).
+- Pelajaran: kode shared antara Node (validator) dan browser (Remotion bundle) HARUS browser-safe. Jangan import Node builtins di module yang dipakai komponen.
+
+## 2026-10-16 — SKILL carousel-engine (user-authored, ganti total alur carousel)
+- File: VPS `/home/ngoprek/skills/carousel-engine/SKILL.md`, lokal `~/workspace/custom-skills/local-carousel-engine/SKILL.md`.
+- Prinsip: SEMUA teks dari kode HTML/CSS. AI image gen HANYA untuk aset dekoratif tanpa teks (max 1/slide, opacity ≤0.35).
+- Spec terkunci: 1080×1350, 4 warna, font lokal @font-face, batas kata (cover ≤12, isi ≤35, CTA ≤20), chrome tetap (header N, pager, panah swipe).
+- 16 layout: 5 cover (C-BIGNUM/C-CMD/C-ERROR/C-QUESTION/C-VERSUS), 8 isi (B-TERMINAL/B-DIFF/B-SPLIT/B-STEPS/B-NODEFLOW/B-TREE/B-BENCH/B-MYTH max 1), 3 CTA (E-SAVE/E-CHECKLIST/E-NEXT).
+- Panorama: 1 kanvas lebar 1080×N, elemen menyebrang batas slide (swipe-driver).
+- Variation Gate 8 sumbu: HOOK/COVER/LAYOUT-SEQ/SLIDES/ACCENT/BG/CTA/PANO. Gate gagal jika di hari sama ada COVER/HOOK/LAYOUT-SEQ sama, atau vs 6 terakhir kurang dari 4 sumbu beda.
+- Render: Playwright headless Chromium, validator JS (font ≥28px, zona aman, warna palet, kata ≤45) + rasio merah ≤20%/lime ≤15%.
+- Storyboard = JSON data, bukan kode. Engine dibekukan, variasi via data.
+
+## 2026-10-16 — Patroli harian: berita AI 24 jam (sumber: browser news + social)
+- Gemini 4 Argon rilis global 14 Okt (Google): multimodal, coding, computer use; benchmark vs GPT-6 Astra & Claude Fable 5.1. Cara pakai: pilar "AI update simpel", draft ai-update-2026-10-16.md.
+- Apple x Meta kolaborasi (15 Okt): model open-weight "Muse Spark Open" jalan lokal di Mac Studio. Tren: AI kuat lokal, bukan cloud. Cara pakai: angle konten self-host/open-weight.
+- REA (morluto/rea): MCP server reverse-engineering buat AI agent, ~183K star/minggu, #1 GitHub trending. Cara pakai: topik repo breakdown + efisiensi skill agent.
+- Runner-up: Epic Games "AI First" (no more hand-written code); 8 negara AS gugat OpenAI (child safety); Wikimedia vs agen AI OpenAI (jutaan request + edit liar); Play Store terima aplikasi vibe-coded; Google SynthID Detector global; Claude Haiku 5.5.
+
+## 2026-10-16 — Patroli harian: format kompetitor dev/tech Indonesia (sumber: social.search IG, engagement-ranked)
+- @arwildoo (94K fol, 1.9K likes): meme-edit cepat (Patrick Star) + narasi relatable job-hunting coding; "coding cuma sebagian kecil" (iceberg). Format paling works minggu ini.
+- @nativeacademy.id (18K fol, 170 likes): hook "GUA NYESEL BARU TAU INI" + tutorial vibe coding — hook nyesel overperform relatif follower.
+- @viral.coder (380K fol): carousel "model launch explainer" + tabel benchmark (Gemini 4 Argon vs GPT-6 Astra vs Claude). Format siap tiru strukturnya untuk AI-update kita (bukan copas konten).
+- @dicoding: carousel "fitur kelihatan gampang, backend ribet" (search/cart/login dibedah).
+- Gap jujur vs video kita: kompetitor menang di hook emosional 1 detik pertama (meme, nyesel, relatable pain); video kita (V3 iron rules) menang di kepadatan data + variasi visual tapi hook masih formal. Archetype MEME_EDIT/HOOK_PAIN belum ada di 12 archetype variety-engine — kandidat tambahan, bukan pengganti.
+
+## 2026-10-16 — Patroli harian: TTS baru terpantau (sumber: browser search)
+- VoxCPM2 (OpenBMB, Apache-2.0, 2B params): tokenizer-free diffusion-autoregressive TTS, 30 bahasa, zero-shot voice cloning + voice design dari deskripsi teks. Klaim: breathing/pacing/emotion shift lebih natural dari model token-based.
+- Gemini 3.8 Flash TTS: #1 Hume AI Voice Design Benchmark, 2000+ production voices, 100+ bahasa.
+- Pocket TTS (Kyutai, ~100M params): CPU-only, 200ms time-to-first-audio, 6x realtime di MacBook Air.
+- Cara pakai: voice kita user-locked (avocado_v2:vg_id_m41) — JANGAN ganti tanpa izin user. Catat sebagai kandidat eksperimen sandbox kalau lock dicabut.
+
+## 2026-10-16 — Patroli harian: teknik motion graphic otomatis (sumber: browser search GitHub)
+- Official Remotion Agent Skills (Remotion 4.0.532, React 19): remotion-best-practices, remotion-create, remotion-markup, remotion-studio, remotion-render, remotion-captions, remotion-maps, remotion-docs, remotion-upgrade. Pola: skill per tahap pipeline, dipanggil agen sesuai kebutuhan. Cara pakai: adopsi pola "skill per tahap" ke engine V3 kita kalau mau standarisasi; engine custom tetap dipertahankan (iron rules user-locked).
+- madebysaira/ai-motion-graphics-comparison: benchmark praktis Omni Flash vs Remotion vs Kling 3.0 vs SeaArt 2. Remotion menang di data accuracy + programmatic scale; Kling 3.0 (native 4K60, native audio gen, multi-shot storyboard) menang sinematik. Cara pakai: Remotion tetap untuk zona data/kode; Kling 3.0 kandidat B-roll sinematik kalau suatu saat butuh (biaya + pipeline baru — ajukan dulu ke user).
+- kieuphat159/video-handover: menegaskan aturan kita — motion graphic stilized TIDAK butuh label AI content (isAiGenerated: false); label itu bunuh retention. Konsisten dengan aturan posting kita.
