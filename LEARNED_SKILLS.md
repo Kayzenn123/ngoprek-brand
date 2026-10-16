@@ -311,3 +311,72 @@ Pelajaran buat @ngoprek.dev:
 - Official Remotion Agent Skills (Remotion 4.0.532, React 19): remotion-best-practices, remotion-create, remotion-markup, remotion-studio, remotion-render, remotion-captions, remotion-maps, remotion-docs, remotion-upgrade. Pola: skill per tahap pipeline, dipanggil agen sesuai kebutuhan. Cara pakai: adopsi pola "skill per tahap" ke engine V3 kita kalau mau standarisasi; engine custom tetap dipertahankan (iron rules user-locked).
 - madebysaira/ai-motion-graphics-comparison: benchmark praktis Omni Flash vs Remotion vs Kling 3.0 vs SeaArt 2. Remotion menang di data accuracy + programmatic scale; Kling 3.0 (native 4K60, native audio gen, multi-shot storyboard) menang sinematik. Cara pakai: Remotion tetap untuk zona data/kode; Kling 3.0 kandidat B-roll sinematik kalau suatu saat butuh (biaya + pipeline baru — ajukan dulu ke user).
 - kieuphat159/video-handover: menegaskan aturan kita — motion graphic stilized TIDAK butuh label AI content (isAiGenerated: false); label itu bunuh retention. Konsisten dengan aturan posting kita.
+
+## 2026-10-16 — PATCH IRON v1.1 SELESAI (engine video)
+- P0 bug: kartu off-center root cause = world rotate -camRotate origin (540,720) vs stasiun rotate +camRotate di pusat sendiri → translasi ~86px. Fix: transformOrigin dinamis ikut pusat stasiun aktif.
+- P1: selectTopology LRU + tie-break hash tanggal, springFeel terpisah. Variation gate 8 sumbu di validator. Drift lokal per scene (bukan frame%300 global).
+- P2: 13 SFX total (10 baru via aevalsrc sweep), pose maskot per emosi kalimat, facts.json (AMOLED 0%, LCD 90%).
+- Signature Kit: ColdOpenTerminal, XRayScan, OfficialStamp (MITOS/FAKTA/ANGKA_GILA), KeywordSlam, EndCard BONGKAR #NNN.
+- 11 file diubah di VPS pipeline. TS compile clean, test render 915 frame OK, QA visual lolos.
+
+## 2026-10-16 — ENCODE TIKTOK ANTI-BUREM
+- Masalah: video 2.8 Mbps diupload ke TikTok → dikompres lagi → burem.
+- Fix: 2-pass libx264, 12 Mbps target (maxrate 15M, bufsize 24M), profile high level 4.0, preset slow, yuv420p, faststart, AAC 128k.
+- Hasil: 12.6 Mbps, 47MB untuk 30 detik. Upload versi ini ke TikTok, bukan versi bitrate rendah.
+- Aturan: SETIAP video final WAJIB punya 2 versi — versi normal (IG) + versi -tiktok (12 Mbps) untuk upload TikTok.
+
+## 2026-10-16 — Perbaikan permanen pipeline (perintah user, no-promise mode)
+- Akar masalah: tools/render.sh hardcoded ke Bongkar002 (bukan pipeline generik).
+  Fix: ENTRY/COMP/AUDIO/OUT_NAME via env var + gate audio preflight + duration sync gate.
+- SFX lama bug: tone konstan -24dB 6.6s + clipping 0dB. Fix: tools/build-rea-sfx.sh (reproducible).
+- Caption Rea001: 3-state abu #888888 → merah #E63946 → putih #FFFFFF.
+- Audio mix gate: VO-SFX min 6dB, VO-bed min 8dB.
+- REA v3: render via render.sh generik, verify.sh LOLOS, tiktok-sim SSIM 0.993.
+- Sisa: Whisper belum di VPS (caption timing masih manual); variasi gerak karakter per emosi belum verifikasi frame-by-frame.
+
+## 2026-10-16 — Aturan kirim video ke user (PERMANEN)
+User: "Selalu sulit unduh videonya harus selalu pake link".
+Attachment sandbox:// di aplikasi Android SUSAH didownload.
+ATURAN: setiap kirim video ke user, SELALU upload dulu via
+/opt/hatch/bin/remote-storage upload-file --path <file>
+lalu kirim LINK-nya (muse.ai/files/...), bukan cuma attachment.
+Sertakan expires_at. Berlaku untuk semua video final.
+
+## 2026-10-16 — Redesign visual REA v4 (perintah: stop tambah fitur, buktikan kualitas)
+- 3 kelemahan v3: (1) template info-panel di semua scene, (2) karakter stiker dekoratif,
+  (3) tipografi kecil kejebak card + caption overlap konten.
+- Fix: 5 scene beda struktur total — S1 tipografi full-screen 132px, S2 karakter+props,
+  S3 chef punch-in spring, S4 angka 300px minimal, S5 close-up intim.
+- Caption: top 1180 → 1500 (tidak overlap).
+- verify.sh LOLOS, tiktok-sim SSIM 0.995 (v3: 0.993).
+- Sisa lemah: props S2 statis, transisi antar scene kurang whip-pan, caption timing manual.
+
+## 2026-10-16 — REA v5: beat planner permanen + audio baru
+- Beat planner: tools/beat-plan.sh (8 aturan keras) + schema + gate di render.sh (tolak render jika plan gagal).
+- Audio v5 hash BEDA (b4303efb vs 907447b4 v3/v4) — 17 SFX event sinkron beat plan.
+- Caption: 2-4 kata per potongan, tanpa "..." tengah kalimat.
+- Mangkuk mie kembali di hook frame 0.
+- Motion v5 (2.41) masih di bawah v3 (2.85) — PR berikutnya.
+- Caption timing masih proporsional (Whisper belum di VPS).
+
+## 2026-10-16 — REA v6: caption dari Whisper word-timestamp (MAKSIMAL)
+- faster-whisper terinstall di VPS: /home/ngoprek/pipeline/whisper-env (av==14.2.0 untuk kompatibilitas).
+- 117 kata ditranskrip dengan timestamp aktual → 35 chunk caption (2-4 kata, 0 "...").
+- Sync: 117 kata, max selisih 0.0ms (sumber waktu tunggal).
+- VO: rata-rata 2.41 kata/detik, range 1.96-2.92 (wajar).
+- verify.sh LOLOS, SSIM 0.9955.
+- Sisa: word-level highlight masih proporsional dalam chunk (CaptionPill belum baca per-kata); motion 2.37 < v3 2.85.
+
+## 2026-10-17 — Patroli harian: pola "one skill" Remotion + temuan tool TTS (sumber: browser search + YouTube)
+- GPT-6 + Remotion "one skill" (video Theo/AgentVault, ~28 hari lalu): pola "bikin animasi SEKALI, jadi library reusable — data in, video out"; 20 intro artis dari 1 folder dalam 1 run; caption app pakai "creativity slider". Cara pakai: dorong katalog scene A–H jadi komponen reusable ber-input (selaras #4 episode renderer generik) — episode baru = ganti input, bukan copy-paste file.
+- kbro1989/video-automation-remotion (CLAUDE.md): pipeline Script → Edge-TTS → Remotion → faster-whisper → FFmpeg → multi-platform export; bake-off internal Remotion vs Hyperframes DIMENANGKAN Remotion. Cara pakai: validasi arsitektur pipeline kita sudah di jalur benar; Edge-TTS dicatat sebagai kandidat TTS fallback (VO lock avocado_v2 tetap, jangan diganti).
+- debpalash/VoiceStudio: alternatif ElevenLabs FULL-LOKAL (voice cloning/design, dubbing, dictation, transkrip, 646 bahasa), +1.676 star 16 Okt 2026. Cara pakai: riset kualitas emosi Bahasa Indonesia dulu kalau mau dipakai; JANGAN sentuh VO lock tanpa izin user.
+
+## 2026-10-17 — Tren efficiency-first AI coding (sumber: GitHub trending 16 Okt)
+- mksglu/context-mode: optimasi context window coding agent — sandbox tool output (klaim reduksi 98%), session memory persisten, routing 17 platform via MCP+hooks. JuliusBrussee/caveman: skill viral "why use many token when few token do trick", potong 65% token. Cara pakai: sudah sejalan dengan stack kita (rtk + ponytail + caveman ultra); angkat jadi TOPIK KONTEN ("fase baru AI coding: bukan model lebih gede, tapi token lebih hemat"), bukan perubahan infra.
+
+## 2026-10-17 — Gap jujur vs video terakhir (REA #001 v6, produksi 16 Okt)
+- Motion score v6 2.37 < v3 2.85 (turun, belum balik). Word-level highlight masih proporsional dalam chunk — CaptionPill belum baca timestamp per-kata dari Whisper. Transisi antar scene belum whip-pan konsisten; props S2 statis. Cara pakai: backlog perbaikan visual berikutnya; user yang nilai visual (aturan 2026-10-14), jadi fokus ke motion + highlight dulu.
+
+## 2026-10-17 — Verifikasi sosial: klaim "Perkara.AI" DITOLAK masuk topic-bank
+- Ringkasan social.search menyebut dev Indonesia "Ibrahim Arief" bikin "Perkara.AI" untuk korban kriminal — tapi pencarian web menunjukkan nama yang sama adalah terdakwa kasus korupsi Chromebook (vonis banding 5 tahun). Identitas tidak terverifikasi sama = risiko salah orang. Cara pakai: JANGAN pernah masukkan topik orang ke bank kalau identitasnya belum terverifikasi dua sumber; kalau ragu, buang.
