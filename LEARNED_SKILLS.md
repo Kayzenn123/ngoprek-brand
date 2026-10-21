@@ -533,3 +533,68 @@ Sertakan expires_at. Berlaku untuk semua video final.
 - Kanal adapted satu-satunya saat ini: props.wdma (animasi mikro kata) untuk elemen teks-kata #006/#008/#130 di 6 tipe scene (VsClash, ProsCons, PlotTwist, MythBust, QuoteCard, CtaComment). content.transitions/cameraShots DITIMPA director di Root.tsx (transitionsWithDirector/shotsWithDirector) — jangan klaim adapted untuk kamera/transisi sebelum lapisan director diubah (fase 2, approval Kay + prosedur ENGINE.lock).
 - Aturan turunan: string audit/generator WAJIB ASCII murni (em-dash -> mismatch ensure_ascii vs apply_hook -> rule17 hash gagal). Naskah uji/produksi untuk jalur aligner batch: angka sebagai DIGIT + hindari nama asing cepat (Whisper menggarble -> coverage aligner < 70% = gate gugur); durasi VO wajib >= ~29,9 dtk (schema totalFrames >= 900).
 - Bukti: EP903 E2E lulus pre+post gate penuh; laporan workspace/motion-prompt-mission/LAPORAN-AKHIR.md.
+
+---
+
+## 2026-10-22 — VoiceStudio (debpalash/VoiceStudio) — TTS lokal "ElevenLabs lokal"
+- Sumber: GitHub (verifikasi 4 sumber independen: techupsider, digisoulhub, explainx.ai, Medium/TechNode). Trending #1 GitHub Oktober, ~57K stars.
+- Inti: desktop app open-source AGPL-3.0 — voice cloning dari rekaman pendek, voice design dari deskripsi teks, dubbing video, transkripsi WhisperX, 16 engine TTS, 646 bahasa termasuk Indonesian. Punya local API OpenAI-compatible + MCP server + agent skill (`npx skills add debpalash/VoiceStudio`).
+- Cara pakai: kalau lolos audisi, clone suara signature sekali → VO generate lokal di VPS tanpa biaya/ketergantungan `tts` CLI Meta. Agen pembuat episode bisa panggil via MCP.
+- Caveat JUJUR: default engine OmniVoice lisensinya NON-KOMERSIAL (konten monetisasi wajib ganti engine); kualitas Indonesian BELUM terverifikasi (voice-design dilatih data Cina+Inggris). Wajib audition sebelum dipakai.
+
+## 2026-10-22 — arboTTS (ARBO-TEAM/arboTTS) — TTS Indonesia ultra-ringan CPU-only
+- Sumber: GitHub (single-source, repo dibuat 2026-10-12, masih 3 stars).
+- Inti: VITS ONNX 31-60MB, jalan penuh di CPU, 7 persona suara Indonesia, REST API OpenAI-compatible (`/v1/audio/speech`) + zero-shot voice cloning API + Web UI. Lisensi MIT.
+- Cara pakai: drop-in replacement `tts` CLI — self-hosted di VPS, integrasi gampang karena API kompatibel OpenAI. Audition dulu (read-only testing, tanpa izin).
+
+## 2026-10-22 — VoxCPM2 (OpenBMB) — TTS open-source id-ID dengan word timestamps
+- Sumber: GitHub OpenBMB/VoxCPM (39.669 stars, Apache-2.0 confirmed 3 sumber).
+- Inti: 2B param, 30 bahasa termasuk Indonesian, 48kHz, voice cloning, Voice Design, flag `--timestamps` untuk word-level alignment — satu paket menghapus langkah Whisper alignment manual.
+- Cara pakai: kandidat upgrade VO (clone suara signature + timestamps otomatis). Syarat: GPU CUDA (ada varian 1.5/0.5B). Test di GPU sewa, bukan VPS.
+
+## 2026-10-22 — Supertonic v3 (Supertone) — TTS on-device 99M param, emosi via tag inline
+- Sumber: GitHub supertone-inc/supertonic (confirmed: id-ID di 31 bahasa, marktechpost + toknow.ai + everydev.ai).
+- Inti: ONNX ~99M param, jalan penuh CPU (~83x real-time), expression tag inline (`<laugh>/<breath>/<sigh>`) + text normalization bawaan (tanggal/angka/uang dibaca benar tanpa preprocessing).
+- Cara pakai: pipeline VO paling ringan — emosi disisipkan langsung di naskah, iterasi naskah super cepat di CPU. Lisensi: kode MIT, model OpenRAIL-M (cek file lisensi sebelum monetisasi).
+
+## 2026-10-22 — Meta Business Suite — auto-publish reels/carousel terjadwal, resmi & gratis
+- Sumber: 8+ panduan 2026 independen, konsisten.
+- Inti: jadwalkan feed post, carousel, Reels, Stories dari desktop; auto-publish tanpa sentuh HP; jendela 75 hari, 25 item/hari. Syarat: akun Professional Business/Creator + Facebook Page terhubung. Scheduling via official API TIDAK menurunkan reach (klaim downrank basi).
+- Cara pakai: ganti alur "kirim ke Telegram → upload manual dari HP" → antre dari laptop, terbit sendiri sesuai jadwal 10:00/15:00/20:00, tinggal spot-check. Nol biaya, nol risiko ToS (produk Meta sendiri).
+- Kebijakan 2026 wajib tahu: hashtag MAKS 5 per post/Reel (dulu 30, caption+komen digabung) — aturan "ketik manual satu-satu" tetap, batasi 5.
+
+## 2026-10-22 — Sonniss GDC 2026 Bundle — 347 SFX studio profesional, gratis
+- Sumber: gdc.sonniss.com + Bedroom Producers Blog + Cinevva (confirmed).
+- Inti: 347 file WAV (7,47 GB) sampel asli dari library komersial (Epic Stock Media dkk), royalty-free, komersial TANPA atribusi, berlaku selamanya. Batasan: tidak untuk training AI/ML, tidak didistribusikan ulang standalone.
+- Cara pakai: download + kurasi kategori motion-graphic (whoosh/impact/transisi) ke library — ganti 31 file sintesis sendiri. Bukan BGM prosedural, jadi tidak melanggar aturan.
+
+## 2026-10-22 — auto-editor (WyattBlue) — potong dead-air 1 perintah
+- Sumber: GitHub (5.582 stars, rilis 31.7.2 2026-10-03) + review Hysen Labs.
+- Inti: CLI potong silence/dead-air berdasar ambang loudness, mode potong berdasar motion, margin padding, export XML ke Premiere/Resolve. Lisensi Unlicense (public domain).
+- Cara pakai: ganti tighten_pauses manual → satu perintah CLI sebelum render.
+
+## 2026-10-22 — easyaligner (KBLab) / mms-forced-align — forced alignment, bukan re-transkripsi
+- Sumber: blog resmi KBLab 8 Apr 2026 (easyaligner, model mms-1b-all termasuk Indonesian) + repo arham-sayyed/mms-forced-align (single-source, 1 star, klaim 42% lebih cepat).
+- Inti: arsitektur yang BENAR untuk pipeline karaoke — diberi audio + teks yang SUDAH diketahui (naskah VO) → word-level timestamps + confidence. Whisper re-transkripsi itu cara yang salah untuk kasus ini.
+- Cara pakai: ganti Whisper alignment manual → npm install mms-forced-align langsung nyambung pipeline Node/Remotion. Indonesian didukung teknis (vocab Latin) tapi BELUM terverifikasi — wajib uji.
+
+## 2026-10-22 — Mediabunny + React Bits + Remotion Agent Skills (ekosistem motion)
+- Sumber: docs resmi Remotion + GitHub (mediabunny 7.355 stars MPL-2.0; react bits update Okt 2026, MIT) — confirmed.
+- Inti: Mediabunny = "ffmpeg untuk web" pure-TS (MP4/WebM/MKV/HLS, browser+Node) — Remotion resmi mengadopsi dan menghentikan @remotion/media-parser. React Bits = 135+ komponen animasi React copy-paste (SplitText, BlurText, Glitch, Aurora/Particles) siap tanam ke komposisi Remotion. Remotion Agent Skills resmi (`npx skills add remotion-dev/skills`) ngajari agen best practices Remotion.
+- Cara pakai: Mediabunny ganti sebagian pemanggilan ffmpeg manual (metadata/frame extract/trimming); React Bits untuk variasi visual reels tanpa bangun dari nol.
+- Koreksi: Remotion 5.0 BELUM RILIS — jangan menunggu; changelog terbaru v4.0.536.
+
+## 2026-10-22 — Standar retensi faceless 2026 (data, bukan opini)
+- Sumber: vidpal.ai, virvid.ai, shortimize.com, revid.ai (12-month study), hookova, clippie.ai — 5+ sumber konvergen.
+- Inti: Shorts top ganti visual tiap 1-2 DETIK (20+ shot per 60 dtk); stok clip >4 detik = "retention cliff". Hook: 3 cut di 2 detik pertama, text overlay ≤9 kata yang state payoff, tanpa branding di detik pertama. 50% penonton hilang di 3 detik pertama. Split audio: 60-70% trending sound NATIF di aplikasi (discovery via audio page, hingga +300% views — dyerbolical) / 30% original. Tren audio hidup 1-3 minggu.
+- Cara pakai: GAP kita terukur — kita masih "1 kalimat = 1 visual ≤8 dtk" (4-8x lebih lambat) dan musik manual tanpa sistem riset sound mingguan. Niche tech/AI faceless top pakai screen recording + captions (bukti aksi di layar), bukan full animasi karakter.
+
+## 2026-10-22 — Format kompetitor dev-ID yang works (data IG API)
+- Sumber: instagram-cli (akun ngoprek.dev), verifikasi silang kol.id "10 Influencer Coding Indonesia".
+- @garryaudie (58K): screen-record demo tool + narasi santai, SELALU kasih link repo di caption — format "tool roundup" engagement 11K vs rata-rata ~1K. MCP × LottieFiles (edit animasi via Claude Code) relevan ke pipeline kita.
+- @arwildoo (92K): meme-edit cepat + narasi relatable; angle "dark news" AI security (agent keluar sandbox, 16.4K likes) cocok pilar AI update simpel.
+- @sandhikagalih (220K): talking head + human-interest; AI buat non-programmer (angle etika "jangan jadi jalan pintas", 2K likes) + AI music creation story — keduanya belum kita sentuh.
+- @codingasik (50K): pola anti-tutorial "jangan mulai dari X" — belum ada di bank kita. (Vakum sejak 24 Sep, data fresh terbatas.)
+
+## 2026-10-22 — Negatif jujur (tidak ada temuan)
+- Teknik GSAP teks baru: tidak ada (SplitText gratis = event 2025). Tool auto-caption baru: whisper-word-captions cuma setara/miring vs Whisper+CaptionKaraoke kita. Whisper baru 2026: tidak ada (masih large-v3-turbo 2024). Model video/lip-sync open-source (LatentSync 1.5, LongCat-Video, Kandinsky 6.0, LingBot) SEMUA butuh NVIDIA GPU — tidak jalan di VPS 4CPU/8GB kita; kalau dipakai = sewa GPU cloud sebagai step batch.
