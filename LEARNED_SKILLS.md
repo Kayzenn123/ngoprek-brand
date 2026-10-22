@@ -598,3 +598,34 @@ Sertakan expires_at. Berlaku untuk semua video final.
 
 ## 2026-10-22 — Negatif jujur (tidak ada temuan)
 - Teknik GSAP teks baru: tidak ada (SplitText gratis = event 2025). Tool auto-caption baru: whisper-word-captions cuma setara/miring vs Whisper+CaptionKaraoke kita. Whisper baru 2026: tidak ada (masih large-v3-turbo 2024). Model video/lip-sync open-source (LatentSync 1.5, LongCat-Video, Kandinsky 6.0, LingBot) SEMUA butuh NVIDIA GPU — tidak jalan di VPS 4CPU/8GB kita; kalau dipakai = sewa GPU cloud sebagai step batch.
+
+## 2026-10-23 — Kitten-TTS 2 (KittenML/KittenTTS) — TTS 1.58-bit CPU-only Bahasa Indonesia + voice cloning
+- Sumber: github.com/KittenML/KittenTTS (rilis 2026-10-22, ~9,6K stars) + alextech.ai + theneuralfeed.com + HF model card kitten-tts-2 (22 Okt 2026) — 4 sumber konvergen.
+- Inti: model TTS ternary 1.58-bit pertama di dunia, 1.7B param, REAL-TIME di CPU biasa tanpa GPU. Zero-shot voice cloning dari 5-30 dtk audio (tanpa fine-tuning) — bisa clone voice signature VO kita SEKALI, generate semua episode lokal di VPS tanpa biaya API. 20 bahasa resmi termasuk INDONESIAN (named voice). Kontrol emosi via `[emotion]` tag inline + `(((emphasis)))`. Output 24kHz.
+- Cara pakai: kandidat VO CPU-only PALING SERIUS sejak VOICE LOCK. Test: `pip install kittenml` → `m.generate("Halo guys", reference="voice-signature.wav")`. PENTING: `normalize=False` untuk naskah Indonesia (normalizer bawaan English-tuned, garble angka/tanggal ID). Model timestamp: TIDAK keluarkan word timestamps → tetap pakai easyaligner untuk karaoke. BLOKIR ADOPSI SEMENTARA: kode Apache 2.0 tapi weights di bawah Stellon Labs Community License — syarat komersial wajib diklarifikasi dulu (konten kita monetizable). Minta izin Kay sebelum uji.
+
+## 2026-10-23 — Remotion 4.0.537 — parseVtt + 7 efek WebGL2/WebGPU baru
+- Sumber: release notes resmi github.com/remotion-dev/remotion (19 Okt 2026) + breakdown YouTube 7:33 (22 Okt 2026) yang menjalankan semua API.
+- Inti: `parseVtt` = parser WebVTT resmi langsung dari paket Remotion — berguna untuk pipeline caption karaoke (VTT↔kue karaoke tanpa parser sendiri). Efek baru: cylinder/sphere/pageTurn (butuh WebGPU), fractalNoise/turbulentDisplace/lensBlur/bevelAlpha (WebGL2). Jangan menunggu v5 (WebGPU default + whisper-webgpu, belum rilis — status sama seperti 22 Okt).
+- Cara pakai: `parseVtt` adopsi aman di 4.x (upgrade patch 4.0.536→4.0.537, ENGINE.lock cek pin sebelum bump). Efek WebGL2 WAJIB test di VPS dulu (butuh `--gl`, swangle di 4-core CPU bisa lambat — ukur biaya render 1 episode sebelum produksi).
+
+## 2026-10-23 — HyperFrames v0.8.185 — motion blur terkonfigurasi + 4K transparent
+- Sumber: undercodenews fact-check (rilis 21 Okt 2026, verified TRUE).
+- Inti: motion blur terkonfigurasi via `data-motion-blur` di root komposisi (shutter-angle + sample-count), render cloud 4K format MOV/WebM transparan, startup browser overlap dengan frame-extraction (lebih cepat — tapi klaim speedup tidak dikuantifikasi, jangan klaim angka).
+- Cara pakai: motion blur = upgrade kualitas visual termurah untuk hook beat — pilot 1 video hook 3 detik sample-count rendah, ukur penalti render time. Skill HyperFrames yang terpasang perlu sync ke versi ini.
+
+## 2026-10-23 — Framefields (WATCHLIST) — code-first video engine WebGPU native tanpa browser
+- Sumber: Product Hunt launch 16 Okt 2026 + README github.com/gatewai-dev/framefields + framefields.dev.
+- Inti: npm package TypeScript — motion graphics + compositing + VFX + audio DSP, render langsung via WebGPU native (Dawn/Metal/Vulkan), NOL Chromium/headless. Deterministic frame clock + visual frame-grid inspection + skill resmi (`npx skills add gatewai-dev/framefields`). Klaim 255 frame 1080p dalam 2.6 dtk di M1 Pro (benchmark vendor, single-source).
+- Cara pakai: BELUM bisa dipakai — wajib GPU native; VPS 4CPU/8GB tidak memenuhi ("butuh GPU cloud"). Watchlist: kalau migrasi ke mesin ber-GPU, ini rival Remotion serius. Lisensi belum terverifikasi.
+
+## 2026-10-23 — AGENTS.md menang lawan CLAUDE.md (data 10.000 repo)
+- Sumber: Medium Gábor Mészáros, "State of AI Instruction Quality" (riset Q3 2026, 10.000 repo populer).
+- Inti: Claude Code dipakai di 69/100 repo top; 43,1% repo pakai 2+ agent sekaligus; 1 dari 5 file CLAUDE.md cuma 1-2 baris yang nyuruh agent baca AGENTS.md (26 lawan 1).
+- Cara pakai: standar instruksi agent konvergen ke SATU file AGENTS.md yang dibaca semua agent (bukan file per-agent). Relevan ke AGENTS.md kita sendiri: satu file instruksi untuk semua agent = pola yang menang di industri.
+
+## 2026-10-23 — Negatif jujur (tidak ada temuan)
+- GSAP: tidak ada rilis/fitur baru 2026 (SplitText rewrite+free = event 2025, sudah dicatat). Native CSS scroll-driven animations naik tapi tidak relevan pipeline Remotion.
+- Gradium Phonon 31M (rilis ~21 Okt, Apache 2.0, 90MB, CPU): checkpoint publik = `phonon-31m-en`, ENGLISH ONLY — bukan kandidat VO Indonesia. Watchlist kalau rilis multilingual.
+- Auto-caption/forced-alignment: tidak ada tool baru vs easyaligner/mms-forced-align (22 Okt). Kitten-TTS 2 tidak keluarkan word timestamps.
+- Model video/lip-sync open-source: tetap semua butuh NVIDIA GPU ≥8GB VRAM → "butuh GPU cloud".
