@@ -629,3 +629,43 @@ Sertakan expires_at. Berlaku untuk semua video final.
 - Gradium Phonon 31M (rilis ~21 Okt, Apache 2.0, 90MB, CPU): checkpoint publik = `phonon-31m-en`, ENGLISH ONLY — bukan kandidat VO Indonesia. Watchlist kalau rilis multilingual.
 - Auto-caption/forced-alignment: tidak ada tool baru vs easyaligner/mms-forced-align (22 Okt). Kitten-TTS 2 tidak keluarkan word timestamps.
 - Model video/lip-sync open-source: tetap semua butuh NVIDIA GPU ≥8GB VRAM → "butuh GPU cloud".
+
+## 2026-10-24 — ARBO-TEAM/arboTTS — TTS Indonesia VITS ONNX CPU-only, MIT
+- Sumber: github.com/ARBO-TEAM/arboTTS (dibuat 2026-10-12, MIT).
+- Inti: TTS Bahasa Indonesia ultra-lightweight, VITS ONNX CPU runtime (jalan di VPS tanpa GPU); Studio Voice Personas; zero-shot voice cloning API; OpenAI-compatible REST API; CLI + Web UI.
+- Cara pakai: kandidat audisi VO alternatif/fallback — generate 1 naskah sampel, bandingkan vs KALEM-2. Kualitas BELUM terverifikasi (repo 12 hari). Bukan pengganti voice lock tanpa izin Kay.
+
+## 2026-10-24 — Fish Audio Drama 3 — TTS open-weight 35B MoE, directing natural, pronunciation #1
+- Sumber: beta.fish.audio/blog/fish-audio-drama-3/ (rilis 13 Okt 2026) + review independen eesel.ai + Artificial Analysis.
+- Inti: 35B MoE (~3B aktif/token), 83 bahasa; directing bahasa natural [tanda kurung] mid-line, <whisper> scoped, multi-speaker, edit 1 kata; #1 AA Pronunciation Robustness 93.2% (independen). Lisensi Fish Audio Community License v1.0 (gratis komersial <US$500rb/thn).
+- Cara pakai: HANYA via API ($50/1M chars, diskon $10 s.d. 12 Nov 2026) — self-host butuh 48GB VRAM, mustahil di VPS. Watchlist/audisi; voice tetap KALEM-2 (lock Kay 23 Okt).
+
+## 2026-10-24 — GSAP 3.15 easeReverse (koreksi catatan 22 Okt)
+- Sumber: mail.gsap.com/blog/3-15/ (rilis 13 Apr 2026). Koreksi: catatan 22 Okt "tidak ada rilis GSAP 2026" keliru — ada 3.15.
+- Inti: easeReverse = adaptive directional easing (ease otomatis berbalik saat reverse). Lini 3.x masih current; tidak ada GSAP 4.
+- Cara pakai: catat saja; nilai pipeline marginal (engine kita frame-driven Remotion, bukan GSAP timeline).
+
+## 2026-10-24 — storytold/effectcraft (WATCHLIST) — rebuild After Effects di Rust
+- Sumber: gwolabsai.substack.com (trending minggu 7 Okt 2026, 1.425 stars) — github.com/storytold/effectcraft, MIT/Apache-2.0.
+- Inti: compositions/layers/keyframes/306 effects/expressions/3D cameras+lights/render queue; Mac/Win/Linux + browser. Masih "young and moving fast".
+- Cara pakai: BUKAN pengganti Remotion; cek ulang 3-6 bulan.
+
+## 2026-10-24 — Teknik variasi caption: letter-spacing ala Jitter + 30 gaya Picsart Flow
+- Sumber: jitter.video/changelog/2026-07-17-letter-spacing-animations/ + picsart.com/blog/ai-captioning-now-in-picsart-flow/ (12 Okt 2026).
+- Inti: animasi letter-spacing untuk emphasis reveals; 30 gaya caption animasi 9:16 (Buzz, Magazine, Neon, Hustle, Closed Cap, Minima).
+- Cara pakai: TIRU gayanya di CaptionKaraoke (bukan adopsi tool): (a) prop letter-spacing per-kata untuk emphasis, (b) rotasi gaya caption per episode = variasi visual nyata. Murah, risiko nol — pilot 1 episode.
+
+## 2026-10-24 — Berita AI 24h: Claude Duet (proactive agent), MiniMax M3.1 Flash "Space Bunny", HF Carbon-X (AI ngobrol DNA)
+- Sumber: 9to5Mac + SiliconANGLE (Duet, 21 Okt); trewknowledge + PYMNTS (MiniMax, 22-23 Okt); TechRepublic + aibriefing.dev (Carbon-X, 22 Okt). Semua verifikasi silang ≥2 sumber. Draft 60-detik: ngoprek-drafts/ai-update-2026-10-24.md.
+- Inti: (a) Anthropic rilis Claude Duet — AI proactive yang nyamperin lu duluan (morning brief, cloud VM, izin sebelum aksi sensitif); perang agent race vs OpenAI Dots & Meta Muse. (b) MiniMax M3.1 Flash: model agent murah $0,15/M token, klaim biaya turun 70%; "Space Bunny" viral leaderboard = versi awalnya. (c) Hugging Face Carbon-X: open-weight 14,8B, chat soal DNA pakai bahasa biasa, jalan lokal — dibangun bareng Univ. Naples Federico II + Zhongguancun Academy.
+- Cara pakai: pilar "AI update simpel" — 3 berita masuk topic-bank/draft; Carbon-X angle sains-fun, MiniMax angle harga, Duet angle agent race.
+
+## 2026-10-24 — Tren AI coding: NVIDIA OpenShell (#3 GitHub trending) + AI rekonstruksi CoD MW2 + DeepSeek Harness
+- Sumber: github.com/trending (24 Okt) — NVIDIA/OpenShell, SnailSploit/Claude-Red, OpenBMB/VoxCPM; IG @aljazeeratechnology (CoD carousel 870 likes, 23 Okt), @twk.dev (DeepSeek Harness reel 1,4K likes, 22 Okt). 6 kandidat di ngoprek-drafts/topic-bank/from-trends.json.
+- Inti: (a) NVIDIA OpenShell: sandbox kernel-level buat agen AI, agen tak pernah lihat kredensial asli, Apache 2.0 — jawaban atas arc "agen AI berbahaya". (b) AI bangun ulang Call of Duty MW2: 500M token, 99% fungsi pulih, 83% byte-identik (bug asli ikut!), lalu Activision DMCA — nostalgia + konflik = viral-ready. (c) DeepSeek Harness: framework agent open-source 256K stars, arsitektur everything-is-plugin, pesaing Claude Code gratis.
+- Cara pakai: kandidat konten; CoD MW2 score 5 paling segar (tidak ada di registry 3 hari terakhir).
+
+## 2026-10-24 — Kompetitor IG dev Indonesia: hook angka-emosi + angle uang/bubble, kita belum sentuh
+- Sumber: instagram-cli posts @ngoprek.dev + social.search IG 17-24 Okt (5 akun: @dikaaprilio.w, @aico.community, @codepolitan, @ininabnabb, @fahmiiireza). 8 kandidat di ngoprek-drafts/topic-bank/from-competitors.json.
+- Inti: (a) GoTo rilis LLM open-source 27B paham bahasa daerah — topik lokal paling viral minggu ini (1.803 likes @codepolitan), BELUM PERNAH kita bahas. (b) @ininabnabb "ngedit video di cloud pakai Claude" 4,4K likes — konten meta tentang pipeline kita sendiri belum pernah dibuat. (c) Angle uang ("100 JT pertama dari AI") & debat opini ("AI bubble atau bukan") engagement tinggi, kita selalu netral-edukatif. (d) Comment-gate = mesin engagement #1 di semua akun, TAPI dilarang total buat kita (CTA DM dicabut 2026-10-19) — ganti CTA save/share.
+- Cara pakai: gap jujur vs EP107-EP111: hook kita informatif-dat vs mereka angka-emosi ("100 JT", "27 miliar parameter"); rekomendasi 1 reels "GoTo LLM 27B" sebagai respons langsung.
